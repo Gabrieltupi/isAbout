@@ -8,6 +8,7 @@ function CardProjetos({id, name, budget, category, handleRemove}){
         handleRemove(id)
     }
 
+    
     return (
         <div className={styles.project_card}>
             <h4>{name}</h4>
