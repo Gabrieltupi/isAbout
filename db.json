@@ -1,0 +1,88 @@
+{
+  "projects": [
+    {
+      "id": "fbe4",
+      "name": "sitezinho'",
+      "budget": "10000",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 3310,
+      "services": [
+        {
+          "name": "desenvolvedor",
+          "cost": "3200",
+          "description": "funcionario dev",
+          "id": "04d324e9-4203-41c1-aa48-3f157d266d36"
+        },
+        {
+          "name": "aumento pro lead",
+          "cost": "100",
+          "description": "funcionario dev",
+          "id": "4f5344ff-6d3b-4733-9ce5-6a875b6d0d8d"
+        },
+        {
+          "name": "balas",
+          "cost": "10",
+          "description": "balinha de goma",
+          "id": "48aac006-aac4-47b7-ba05-892c92d55292"
+        }
+      ]
+    },
+    {
+      "id": "77e9",
+      "name": "contratação de um agilista 3",
+      "budget": "3500",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 3500,
+      "services": [
+        {
+          "name": "Contrato",
+          "description": "o futuro funcionario achadado é de boa experiencia ",
+          "cost": "3500",
+          "id": "25ad46a4-87da-43dc-8083-d122373bdb28"
+        }
+      ]
+    },
+    {
+      "id": "480d",
+      "name": "jira",
+      "budget": "3000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 2999,
+      "services": [
+        {
+          "name": "sistema",
+          "cost": "2999",
+          "description": "sistemA",
+          "id": "bf787692-9381-46f9-966d-e6173a824f7a"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Infra"
+    },
+    {
+      "id": "2",
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": "3",
+      "name": "Design"
+    },
+    {
+      "id": "4",
+      "name": "Planejamento"
+    }
+  ]
+}
