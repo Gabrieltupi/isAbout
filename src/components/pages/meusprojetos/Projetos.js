@@ -3,9 +3,10 @@ import { useLocation } from "react-router-dom"
 import styles from './Projetos.module.css'
 import Container from "../../layout/corpo/Container"
 import LinkButton from "../../layout/corpo/LinkButton"
-import CardProjetos from "../../formulario/CardProjetos"
+import CardProjetos from "../../formulario/cards/CardProjetos"
 import { useState, useEffect } from "react"
 import Loading from "../../layout/Loading"
+import fazerRequisicao from '../../utils/Fetch'
 
 function Projetos(){
     const [projetos,setProjetos]=useState([])
@@ -13,18 +14,12 @@ function Projetos(){
     const [mensagemProjeto,setMensagemProjeto]= useState('')
 
     useEffect(()=>{
-        fetch('http://localhost:5000/projects',{
-            method: 'GET',
-            headers:{
-                'Content-type': 'application/json',
-            },
-        }).then(resp=> resp.json())
-        .then(data=>{
-            setProjetos(data)
-            console.log(data)
-            setRemoveLoading(true)
-        })
-        .catch((err)=> console.log(err,'Erro ao buscar Projetos do BD'))
+        async function buscaProjetos(){
+            const data = await fazerRequisicao('http://localhost:5000/projects')
+            setProjetos(data);
+            setRemoveLoading(true); 
+        }
+        buscaProjetos()
     },[])    
 
     const location=useLocation()
@@ -32,19 +27,11 @@ function Projetos(){
     if(location.state){
         message= location.state.message
     }
-
-    function removeProject(id){
-        fetch(`http://localhost:5000/projects/${id}`,{
-            method:'DELETE',
-            headers:{
-                'Content-type': 'application/json',
-            },
-        }).then(resp=>resp.json())
-        .then(data=>{
-            setProjetos(projetos.filter((projeto)=>projetos.id!==id))
-            setMensagemProjeto('Projeto removido com sucesso')
-        })
-        .catch(err=> console.log(err,'Erro ao deletar'))
+    
+     async function removeProject(id){
+        await fazerRequisicao(`http://localhost:5000/projects/${id}`, 'DELETE')
+        setProjetos(projetos.filter(projeto => projeto.id !== id))
+        setMensagemProjeto('Projeto removido com sucesso')
     }
     
     return(
@@ -56,7 +43,7 @@ function Projetos(){
             {message && <Message type='sucess' mensagem={message}/>}
             <Container customClass="start">
                 {projetos.length>0 && projetos.map((projeto)=>
-                    <CardProjetos id={projeto.id} name={projeto.name} budget={projeto.budget} category={projeto.category.name} key={projeto.id}
+                    <CardProjetos id={projeto.id} name={projeto.name} budget={projeto.budget} category={projeto.category?.name ?? 'categria desconhecida'} key={projeto.id}
                     handleRemove={removeProject}/>
                 )}
                 {!removeLoading && <Loading/>}

@@ -1,3 +1,4 @@
+import fazerRequisicao from '../utils/Fetch'
 import styles from './FormularioProjeto.module.css'
 import Input from './Input'
 import Select from './Select'
@@ -10,17 +11,11 @@ function FormularioProjeto({handleSubmit,btnText,projectData}){
     const [project, setProject]= useState(projectData||{})
 
     useEffect(()=>{
-        fetch("http://localhost:5000/categories",{
-        method: "GET",
-        headers:{
-            'Content-type': 'aplication/json',
-        },
-    })
-        .then((resp)=> resp.json())
-        .then((data)=>{
+        async function getCategorias(){
+            const data= await fazerRequisicao('http://localhost:5000/categories')
             setCategories(data)
-        })
-        .catch((err)=> console.log(err,'erro com o backend'))
+        }
+        getCategorias()
     },[])
 
     const submit=(e)=>{
@@ -28,6 +23,7 @@ function FormularioProjeto({handleSubmit,btnText,projectData}){
         console.log(project)
         handleSubmit(project)
     }
+    
     function handleChange(e){
         setProject({...project,[e.target.name]: e.target.value})
     }

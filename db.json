@@ -1,50 +1,26 @@
 {
   "projects": [
     {
-      "id": "fbe4",
-      "name": "sitezinho'",
-      "budget": "10000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 3310,
-      "services": [
-        {
-          "name": "desenvolvedor",
-          "cost": "3200",
-          "description": "funcionario dev",
-          "id": "04d324e9-4203-41c1-aa48-3f157d266d36"
-        },
-        {
-          "name": "aumento pro lead",
-          "cost": "100",
-          "description": "funcionario dev",
-          "id": "4f5344ff-6d3b-4733-9ce5-6a875b6d0d8d"
-        },
-        {
-          "name": "balas",
-          "cost": "10",
-          "description": "balinha de goma",
-          "id": "48aac006-aac4-47b7-ba05-892c92d55292"
-        }
-      ]
-    },
-    {
       "id": "77e9",
       "name": "contratação de um agilista 3",
-      "budget": "3500",
+      "budget": "9000",
       "category": {
         "id": "4",
         "name": "Planejamento"
       },
-      "cost": 3500,
+      "cost": 9000,
       "services": [
         {
           "name": "Contrato",
           "description": "o futuro funcionario achadado é de boa experiencia ",
           "cost": "3500",
           "id": "25ad46a4-87da-43dc-8083-d122373bdb28"
+        },
+        {
+          "name": "outro",
+          "cost": "5500",
+          "description": "lead agilista leopardo",
+          "id": "a99e61e8-b6c0-4cd8-9270-c01354005fd4"
         }
       ]
     },
@@ -65,6 +41,77 @@
           "id": "bf787692-9381-46f9-966d-e6173a824f7a"
         }
       ]
+    },
+    {
+      "0": {
+        "name": "desenvolvedor baack-end senior",
+        "cost": "9000",
+        "description": "irá liderar tecnicamente a equipe ao resultado do projeto",
+        "id": "6f70be99-c75d-4f5a-a11a-f0b832736c43"
+      },
+      "1": {
+        "name": "gabrieç",
+        "description": "valor",
+        "cost": "100",
+        "id": "94145b54-348e-42eb-8c94-32e718aede36"
+      },
+      "2": {
+        "name": "fff",
+        "cost": "1",
+        "description": "sss",
+        "id": "81441fe9-27ae-4a07-b9f2-0538f86e6fd5"
+      },
+      "3": {
+        "name": "almoço executivo",
+        "cost": "500",
+        "description": "almoço pros chefe",
+        "id": "2e15fea4-f4cc-4b81-b626-d028871cc4b6"
+      },
+      "4": {
+        "name": "nota dó",
+        "cost": "401",
+        "description": "mundo nao gira ao seu redor",
+        "id": "f520cc77-0a59-40bb-b05e-c06137b0066d"
+      },
+      "id": "1282",
+      "name": "refatoração site",
+      "budget": "60002",
+      "category": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "cost": 9600,
+      "services": [
+        {
+          "name": "desenvolvedor baack-end senior",
+          "cost": "9000",
+          "description": "irá liderar tecnicamente a equipe ao resultado do projeto",
+          "id": "6f70be99-c75d-4f5a-a11a-f0b832736c43"
+        },
+        {
+          "name": "gabrieç",
+          "description": "valor",
+          "cost": "100",
+          "id": "94145b54-348e-42eb-8c94-32e718aede36"
+        },
+        {
+          "name": "almoço executivo",
+          "cost": "500",
+          "description": "almoço pros chefe",
+          "id": "2e15fea4-f4cc-4b81-b626-d028871cc4b6"
+        }
+      ]
+    },
+    {
+      "id": "73f7",
+      "name": "novo PO",
+      "budget": "8000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 0,
+      "services": []
     }
   ],
   "categories": [

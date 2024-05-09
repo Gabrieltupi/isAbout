@@ -7,28 +7,28 @@ import FormularioProjeto from '../../formulario/FormularioProjeto'
 import Message from '../../layout/Message'
 import FormularioServico from '../../formulario/FormularioServico'
 import {parse,v4 as uuidv4} from 'uuid' 
+import CartaoServico from '../../formulario/cards/CartaoServico'
+import fazerRequisicao from '../../utils/Fetch'
 
 function Projeto(){
         const {id}= useParams()
         const [projeto, setProjeto]= useState([])
         const [mostrarFormularioProjeto,setMostrarFormularioProjeto]=useState(false)
         const [mostrarServicoProjeto,setMostrarServicoProjeto]=useState(false)
-
+        const [services, setServices]=useState([])
         const [mensagem,setMessage]=useState()
         const [type,setType]=useState()
 
         useEffect(()=>{
             setTimeout(()=>{
-                fetch(`http://localhost:5000/projects/${id}`,{
-                method:'GET',
-                headers:{
-                    'Content-type':'application/json',
-                },
-                }).then(resp=>resp.json())
-                    .then((data)=>{
+
+                async function getProjeto(){
+                    const data= await fazerRequisicao(`http://localhost:5000/projects/${id}`)
                     setProjeto(data)
-                    })
-                    .catch(err => console.log(err,'Erro ao buscar projeto'))
+                    setServices(data.services)
+                } 
+                getProjeto()
+
             },300)
         },[id])  
 
@@ -41,29 +41,21 @@ function Projeto(){
                 return false
             }
 
-            fetch(`http://localhost:5000/projects/${projeto.id}`,{
-                method:'PATCH',
-                headers:{
-                    'Content-type':'application/json',
-                },
-                body:JSON.stringify(projeto),
-            }).then(resp=>resp.json())
-            .then((data)=>{
+            async function atualizaProjeto(){
+                const data= await fazerRequisicao(`http://localhost:5000/projects/${projeto.id}`,'PATCH', projeto)
                 setProjeto(data)
                 setMostrarFormularioProjeto(false)
                 setMessage('Projeto atualizado')
                 setType('sucess')
-            })
-            .catch(err=>console.log(err,"Erro ao atualizar"))
+            }
+            atualizaProjeto()
         }
+
 
         function createService(){
             setMessage('')
-
-            //ultimo serviço
             const ultimoServico= projeto.services[projeto.services.length-1]
             ultimoServico.id=uuidv4()
-
             const ultimoServicoCusto=ultimoServico.cost
             const novoCusto= parseFloat(projeto.cost)+ parseFloat(ultimoServicoCusto)
 
@@ -73,25 +65,31 @@ function Projeto(){
                 projeto.services.pop()
                 return false
             }
-
             projeto.cost=novoCusto
 
-            fetch(`http://localhost:5000/projects/${projeto.id}`,{
-                method:'PATCH',
-                headers:{
-                    'Content-type': 'application/json',
-                },
-                body:JSON.stringify(projeto)
-            })
-            .then(resp=>resp.json())
-            .then((data)=>{
-                console.log(data)
-            })
-            .catch((err)=>  console.log(err,'Erro ao adicionar serviço'))
+            const data= fazerRequisicao(`http://localhost:5000/projects/${projeto.id}`,'PATCH', services)
+            console.log(data)
+            setMostrarServicoProjeto(false)
             setMessage('Serviço adicionado')
             setType('sucess')
         }
 
+        
+        async function removeService(id,cost){
+            const updateServico= projeto.services.filter(
+                (service)=> service.id !==id
+            )
+            const updateProjeto= projeto
+
+            updateProjeto.services=updateServico
+            updateProjeto.cost=parseFloat(updateProjeto.cost)- parseFloat(cost)
+
+            await fazerRequisicao(`http://localhost:5000/projects/${updateProjeto.id}`,'PATCH', updateProjeto)
+            setProjeto(updateProjeto)
+            setServices(updateServico)
+            setMessage('Serviço removido com sucesso')
+            setType('sucess')
+        }
 
         function toggleProjectForm(){
             setMostrarFormularioProjeto(!mostrarFormularioProjeto)
@@ -151,11 +149,20 @@ function Projeto(){
                                     <FormularioServico handleSubmit={createService} textBtn='Adicionar Serviço' projectData={projeto}/>
                                 )}
                             </div>
+
                             <h2>Serviços</h2>
                             <Container customClass='start'>
-                                <p>Itens de Serviços</p>
+                                <div className={styles.service_Cards}>
+                                    {services.length>0 &&
+                                    services.map((service)=>(
+                                        <CartaoServico id={service.id} name={service.name} cost={service.cost} description={service.description} key={service.id} handleRemove={removeService} />
+                                    ))
+                                    }
+                                    {services.length ===0 && <p>Não há serviços para este projeto ainda.</p>}                                
+                                </div>
                             </Container>
-                        </div>
+                          
+                        </div>    
                     </Container>
                     
                 </div>
